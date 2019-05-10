@@ -6,6 +6,6 @@ services:
     #     - ~/volumes/jhipster/dorapos/postgresql/:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=dorapos
-      - POSTGRES_PASSWORD=
+      - POSTGRES_PASSWORD=dorapos1234
     ports:
       - 5432:5432
