@@ -1,0 +1,153 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-orders-heading" jhiTranslate="doraposApp.orders.home.createOrEditLabel">Create or edit a Orders</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!orders.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.customerName" for="field_customerName">Customer Name</label>
+                    <input type="text" class="form-control" name="customerName" id="field_customerName"
+                           formControlName="customerName"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.totalPrice" for="field_totalPrice">Total Price</label>
+                    <input type="number" class="form-control" name="totalPrice" id="field_totalPrice"
+                           formControlName="totalPrice"/>
+                    <div *ngIf="editForm.get('totalPrice').invalid && (editForm.get('totalPrice').dirty || editForm.get('totalPrice').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('totalPrice').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('totalPrice')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.quantity" for="field_quantity">Quantity</label>
+                    <input type="number" class="form-control" name="quantity" id="field_quantity"
+                           formControlName="quantity"/>
+                    <div *ngIf="editForm.get('quantity').invalid && (editForm.get('quantity').dirty || editForm.get('quantity').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('quantity').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('quantity')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.discountPercentage" for="field_discountPercentage">Discount Percentage</label>
+                    <input type="number" class="form-control" name="discountPercentage" id="field_discountPercentage"
+                           formControlName="discountPercentage"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.discountAmount" for="field_discountAmount">Discount Amount</label>
+                    <input type="number" class="form-control" name="discountAmount" id="field_discountAmount"
+                           formControlName="discountAmount"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.taxPercentage" for="field_taxPercentage">Tax Percentage</label>
+                    <input type="number" class="form-control" name="taxPercentage" id="field_taxPercentage"
+                           formControlName="taxPercentage"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.taxAmount" for="field_taxAmount">Tax Amount</label>
+                    <input type="number" class="form-control" name="taxAmount" id="field_taxAmount"
+                           formControlName="taxAmount"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.orderStatus" for="field_orderStatus">Order Status</label>
+                    <select class="form-control" name="orderStatus" formControlName="orderStatus" id="field_orderStatus">
+                        <option value="INCOMPLETE">{{'doraposApp.OrderStatus.INCOMPLETE' | translate}}</option>
+                        <option value="COMPLETED">{{'doraposApp.OrderStatus.COMPLETED' | translate}}</option>
+                        <option value="PENDING">{{'doraposApp.OrderStatus.PENDING' | translate}}</option>
+                        <option value="READY">{{'doraposApp.OrderStatus.READY' | translate}}</option>
+                        <option value="CANCELLED">{{'doraposApp.OrderStatus.CANCELLED' | translate}}</option>
+                        <option value="REFUNDED">{{'doraposApp.OrderStatus.REFUNDED' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.note" for="field_note">Note</label>
+                    <input type="text" class="form-control" name="note" id="field_note"
+                           formControlName="note"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.orderDate" for="field_orderDate">Order Date</label>
+                    <div class="d-flex">
+                        <input id="field_orderDate" type="datetime-local" class="form-control" name="orderDate" formControlName="orderDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.isVariantOrder" for="field_isVariantOrder">Is Variant Order</label>
+                    <input type="checkbox" class="form-control" name="isVariantOrder" id="field_isVariantOrder"
+                           formControlName="isVariantOrder"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.paymentMethod" for="field_paymentMethod">Payment Method</label>
+                    <select class="form-control" id="field_paymentMethod" name="paymentMethod" formControlName="paymentMethodId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="paymentMethodOption.id" *ngFor="let paymentMethodOption of paymentmethods; trackBy: trackPaymentMethodById">{{paymentMethodOption.paymentMethod}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.soldBy" for="field_soldBy">Sold By</label>
+                    <select class="form-control" id="field_soldBy" name="soldBy" formControlName="soldById">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="profileOption.id" *ngFor="let profileOption of profiles; trackBy: trackProfileById">{{profileOption.firstName}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.preparedBy" for="field_preparedBy">Prepared By</label>
+                    <select class="form-control" id="field_preparedBy" name="preparedBy" formControlName="preparedById">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="profileOption.id" *ngFor="let profileOption of profiles; trackBy: trackProfileById">{{profileOption.firstName}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.shopDevice" for="field_shopDevice">Shop Device</label>
+                    <select class="form-control" id="field_shopDevice" name="shopDevice" formControlName="shopDeviceId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="shopDeviceOption.id" *ngFor="let shopDeviceOption of shopdevices; trackBy: trackShopDeviceById">{{shopDeviceOption.deviceName}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.sectionTable" for="field_sectionTable">Section Table</label>
+                    <select class="form-control" id="field_sectionTable" name="sectionTable" formControlName="sectionTableId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="sectionTableOption.id" *ngFor="let sectionTableOption of sectiontables; trackBy: trackSectionTableById">{{sectionTableOption.tableNumber}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.orders.shop" for="field_shop">Shop</label>
+                    <select class="form-control" id="field_shop" name="shop" formControlName="shopId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="shopOption.id" *ngFor="let shopOption of shops; trackBy: trackShopById">{{shopOption.shopName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

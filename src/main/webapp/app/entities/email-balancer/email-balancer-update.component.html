@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-email-balancer-heading" jhiTranslate="doraposApp.emailBalancer.home.createOrEditLabel">Create or edit a Email Balancer</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!emailBalancer.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.emailBalancer.relayId" for="field_relayId">Relay Id</label>
+                    <input type="text" class="form-control" name="relayId" id="field_relayId"
+                           formControlName="relayId"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.emailBalancer.relayPassword" for="field_relayPassword">Relay Password</label>
+                    <input type="text" class="form-control" name="relayPassword" id="field_relayPassword"
+                           formControlName="relayPassword"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.emailBalancer.startingCount" for="field_startingCount">Starting Count</label>
+                    <input type="number" class="form-control" name="startingCount" id="field_startingCount"
+                           formControlName="startingCount"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.emailBalancer.endingCount" for="field_endingCount">Ending Count</label>
+                    <input type="number" class="form-control" name="endingCount" id="field_endingCount"
+                           formControlName="endingCount"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.emailBalancer.provider" for="field_provider">Provider</label>
+                    <input type="text" class="form-control" name="provider" id="field_provider"
+                           formControlName="provider"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.emailBalancer.relayPort" for="field_relayPort">Relay Port</label>
+                    <input type="number" class="form-control" name="relayPort" id="field_relayPort"
+                           formControlName="relayPort"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.emailBalancer.enabled" for="field_enabled">Enabled</label>
+                    <input type="checkbox" class="form-control" name="enabled" id="field_enabled"
+                           formControlName="enabled"/>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

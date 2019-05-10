@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-company-heading" jhiTranslate="doraposApp.company.home.createOrEditLabel">Create or edit a Company</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!company.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.company.companyName" for="field_companyName">Company Name</label>
+                    <input type="text" class="form-control" name="companyName" id="field_companyName"
+                           formControlName="companyName"/>
+                    <div *ngIf="editForm.get('companyName').invalid && (editForm.get('companyName').dirty || editForm.get('companyName').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('companyName').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.company.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.company.note" for="field_note">Note</label>
+                    <input type="text" class="form-control" name="note" id="field_note"
+                           formControlName="note"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.company.companyLogo" for="field_companyLogo">Company Logo</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('companyLogoContentType').value + ';base64,' + editForm.get('companyLogo').value" style="max-height: 100px;" *ngIf="editForm.get('companyLogo').value" alt="company image"/>
+                        <div *ngIf="editForm.get('companyLogo').value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{editForm.get('companyLogoContentType').value}}, {{byteSize(editForm.get('companyLogo').value)}}</span>
+                            <button type="button" (click)="clearInputImage('companyLogo', 'companyLogoContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_companyLogo" (change)="setFileData($event, 'companyLogo', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="companyLogo" id="field_companyLogo"
+                           formControlName="companyLogo"/>
+                    <input type="hidden" class="form-control" name="companyLogoContentType" id="field_companyLogoContentType"
+                           formControlName="companyLogoContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.company.companyLogoUrl" for="field_companyLogoUrl">Company Logo Url</label>
+                    <input type="text" class="form-control" name="companyLogoUrl" id="field_companyLogoUrl"
+                           formControlName="companyLogoUrl"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.company.active" for="field_active">Active</label>
+                    <input type="checkbox" class="form-control" name="active" id="field_active"
+                           formControlName="active"/>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

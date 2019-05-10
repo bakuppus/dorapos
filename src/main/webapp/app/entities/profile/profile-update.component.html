@@ -1,0 +1,196 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-profile-heading" jhiTranslate="doraposApp.profile.home.createOrEditLabel">Create or edit a Profile</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!profile.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.firstName" for="field_firstName">First Name</label>
+                    <input type="text" class="form-control" name="firstName" id="field_firstName"
+                           formControlName="firstName"/>
+                    <div *ngIf="editForm.get('firstName').invalid && (editForm.get('firstName').dirty || editForm.get('firstName').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('firstName').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.lastName" for="field_lastName">Last Name</label>
+                    <input type="text" class="form-control" name="lastName" id="field_lastName"
+                           formControlName="lastName"/>
+                    <div *ngIf="editForm.get('lastName').invalid && (editForm.get('lastName').dirty || editForm.get('lastName').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('lastName').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.email" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                           formControlName="email"/>
+                    <div *ngIf="editForm.get('email').invalid && (editForm.get('email').dirty || editForm.get('email').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('email').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.userType" for="field_userType">User Type</label>
+                    <select class="form-control" name="userType" formControlName="userType" id="field_userType">
+                        <option value="SYSTEM_MANAGER">{{'doraposApp.ProfileType.SYSTEM_MANAGER' | translate}}</option>
+                        <option value="COMPANY_MANAGER">{{'doraposApp.ProfileType.COMPANY_MANAGER' | translate}}</option>
+                        <option value="SHOP_MANAGER">{{'doraposApp.ProfileType.SHOP_MANAGER' | translate}}</option>
+                        <option value="EMPLOYEE">{{'doraposApp.ProfileType.EMPLOYEE' | translate}}</option>
+                        <option value="CUSTOMER">{{'doraposApp.ProfileType.CUSTOMER' | translate}}</option>
+                        <option value="SUPPLIER">{{'doraposApp.ProfileType.SUPPLIER' | translate}}</option>
+                        <option value="MANAGEMENT_CEO">{{'doraposApp.ProfileType.MANAGEMENT_CEO' | translate}}</option>
+                        <option value="MANAGEMENT_OTHER">{{'doraposApp.ProfileType.MANAGEMENT_OTHER' | translate}}</option>
+                        <option value="ACCOUNTANT">{{'doraposApp.ProfileType.ACCOUNTANT' | translate}}</option>
+                    </select>
+                    <div *ngIf="editForm.get('userType').invalid && (editForm.get('userType').dirty || editForm.get('userType').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('userType').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.dateOfBirth" for="field_dateOfBirth">Date Of Birth</label>
+                    <div class="input-group">
+                        <input id="field_dateOfBirth" type="text" class="form-control" name="dateOfBirth" ngbDatepicker  #dateOfBirthDp="ngbDatepicker" formControlName="dateOfBirth"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateOfBirthDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.gender" for="field_gender">Gender</label>
+                    <select class="form-control" name="gender" formControlName="gender" id="field_gender">
+                        <option value="MALE">{{'doraposApp.Gender.MALE' | translate}}</option>
+                        <option value="FEMALE">{{'doraposApp.Gender.FEMALE' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.registerationDate" for="field_registerationDate">Registeration Date</label>
+                    <div class="d-flex">
+                        <input id="field_registerationDate" type="datetime-local" class="form-control" name="registerationDate" formControlName="registerationDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.lastAccess" for="field_lastAccess">Last Access</label>
+                    <div class="d-flex">
+                        <input id="field_lastAccess" type="datetime-local" class="form-control" name="lastAccess" formControlName="lastAccess" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.profileStatus" for="field_profileStatus">Profile Status</label>
+                    <select class="form-control" name="profileStatus" formControlName="profileStatus" id="field_profileStatus">
+                        <option value="ACTIVE">{{'doraposApp.ProfileStatus.ACTIVE' | translate}}</option>
+                        <option value="SUSPENDED">{{'doraposApp.ProfileStatus.SUSPENDED' | translate}}</option>
+                        <option value="IN_ACTIVE">{{'doraposApp.ProfileStatus.IN_ACTIVE' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.telephone" for="field_telephone">Telephone</label>
+                    <input type="text" class="form-control" name="telephone" id="field_telephone"
+                           formControlName="telephone"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.mobile" for="field_mobile">Mobile</label>
+                    <input type="text" class="form-control" name="mobile" id="field_mobile"
+                           formControlName="mobile"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.hourlyPayRate" for="field_hourlyPayRate">Hourly Pay Rate</label>
+                    <input type="number" class="form-control" name="hourlyPayRate" id="field_hourlyPayRate"
+                           formControlName="hourlyPayRate"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.thumbnailPhoto" for="field_thumbnailPhoto">Thumbnail Photo</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('thumbnailPhotoContentType').value + ';base64,' + editForm.get('thumbnailPhoto').value" style="max-height: 100px;" *ngIf="editForm.get('thumbnailPhoto').value" alt="profile image"/>
+                        <div *ngIf="editForm.get('thumbnailPhoto').value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{editForm.get('thumbnailPhotoContentType').value}}, {{byteSize(editForm.get('thumbnailPhoto').value)}}</span>
+                            <button type="button" (click)="clearInputImage('thumbnailPhoto', 'thumbnailPhotoContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_thumbnailPhoto" (change)="setFileData($event, 'thumbnailPhoto', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="thumbnailPhoto" id="field_thumbnailPhoto"
+                           formControlName="thumbnailPhoto"/>
+                    <input type="hidden" class="form-control" name="thumbnailPhotoContentType" id="field_thumbnailPhotoContentType"
+                           formControlName="thumbnailPhotoContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.thumbnailPhotoUrl" for="field_thumbnailPhotoUrl">Thumbnail Photo Url</label>
+                    <input type="text" class="form-control" name="thumbnailPhotoUrl" id="field_thumbnailPhotoUrl"
+                           formControlName="thumbnailPhotoUrl"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.fullPhoto" for="field_fullPhoto">Full Photo</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('fullPhotoContentType').value + ';base64,' + editForm.get('fullPhoto').value" style="max-height: 100px;" *ngIf="editForm.get('fullPhoto').value" alt="profile image"/>
+                        <div *ngIf="editForm.get('fullPhoto').value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{editForm.get('fullPhotoContentType').value}}, {{byteSize(editForm.get('fullPhoto').value)}}</span>
+                            <button type="button" (click)="clearInputImage('fullPhoto', 'fullPhotoContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_fullPhoto" (change)="setFileData($event, 'fullPhoto', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="fullPhoto" id="field_fullPhoto"
+                           formControlName="fullPhoto"/>
+                    <input type="hidden" class="form-control" name="fullPhotoContentType" id="field_fullPhotoContentType"
+                           formControlName="fullPhotoContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.fullPhotoUrl" for="field_fullPhotoUrl">Full Photo Url</label>
+                    <input type="text" class="form-control" name="fullPhotoUrl" id="field_fullPhotoUrl"
+                           formControlName="fullPhotoUrl"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.active" for="field_active">Active</label>
+                    <input type="checkbox" class="form-control" name="active" id="field_active"
+                           formControlName="active"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.shopChangeId" for="field_shopChangeId">Shop Change Id</label>
+                    <input type="number" class="form-control" name="shopChangeId" id="field_shopChangeId"
+                           formControlName="shopChangeId"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="userId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.firstName}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.profile.shop" for="field_shop">Shop</label>
+                    <select class="form-control" id="field_shop" name="shop" formControlName="shopId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="shopOption.id" *ngFor="let shopOption of shops; trackBy: trackShopById">{{shopOption.shopName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

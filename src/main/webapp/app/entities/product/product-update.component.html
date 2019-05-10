@@ -1,0 +1,180 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-product-heading" jhiTranslate="doraposApp.product.home.createOrEditLabel">Create or edit a Product</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!product.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.productName" for="field_productName">Product Name</label>
+                    <input type="text" class="form-control" name="productName" id="field_productName"
+                           formControlName="productName"/>
+                    <div *ngIf="editForm.get('productName').invalid && (editForm.get('productName').dirty || editForm.get('productName').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('productName').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('productName').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 30 }">
+                        This field cannot be longer than 30 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.productDescription" for="field_productDescription">Product Description</label>
+                    <input type="text" class="form-control" name="productDescription" id="field_productDescription"
+                           formControlName="productDescription"/>
+                    <div *ngIf="editForm.get('productDescription').invalid && (editForm.get('productDescription').dirty || editForm.get('productDescription').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('productDescription').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 99 }">
+                        This field cannot be longer than 99 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.price" for="field_price">Price</label>
+                    <input type="number" class="form-control" name="price" id="field_price"
+                           formControlName="price"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.quantity" for="field_quantity">Quantity</label>
+                    <input type="number" class="form-control" name="quantity" id="field_quantity"
+                           formControlName="quantity"/>
+                    <div *ngIf="editForm.get('quantity').invalid && (editForm.get('quantity').dirty || editForm.get('quantity').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('quantity').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('quantity')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.productImageFull" for="field_productImageFull">Product Image Full</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('productImageFullContentType').value + ';base64,' + editForm.get('productImageFull').value" style="max-height: 100px;" *ngIf="editForm.get('productImageFull').value" alt="product image"/>
+                        <div *ngIf="editForm.get('productImageFull').value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{editForm.get('productImageFullContentType').value}}, {{byteSize(editForm.get('productImageFull').value)}}</span>
+                            <button type="button" (click)="clearInputImage('productImageFull', 'productImageFullContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_productImageFull" (change)="setFileData($event, 'productImageFull', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="productImageFull" id="field_productImageFull"
+                           formControlName="productImageFull"/>
+                    <input type="hidden" class="form-control" name="productImageFullContentType" id="field_productImageFullContentType"
+                           formControlName="productImageFullContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.productImageFullUrl" for="field_productImageFullUrl">Product Image Full Url</label>
+                    <input type="text" class="form-control" name="productImageFullUrl" id="field_productImageFullUrl"
+                           formControlName="productImageFullUrl"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.productImageThumb" for="field_productImageThumb">Product Image Thumb</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('productImageThumbContentType').value + ';base64,' + editForm.get('productImageThumb').value" style="max-height: 100px;" *ngIf="editForm.get('productImageThumb').value" alt="product image"/>
+                        <div *ngIf="editForm.get('productImageThumb').value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{editForm.get('productImageThumbContentType').value}}, {{byteSize(editForm.get('productImageThumb').value)}}</span>
+                            <button type="button" (click)="clearInputImage('productImageThumb', 'productImageThumbContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_productImageThumb" (change)="setFileData($event, 'productImageThumb', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="productImageThumb" id="field_productImageThumb"
+                           formControlName="productImageThumb"/>
+                    <input type="hidden" class="form-control" name="productImageThumbContentType" id="field_productImageThumbContentType"
+                           formControlName="productImageThumbContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.productImageThumbUrl" for="field_productImageThumbUrl">Product Image Thumb Url</label>
+                    <input type="text" class="form-control" name="productImageThumbUrl" id="field_productImageThumbUrl"
+                           formControlName="productImageThumbUrl"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.dateCreated" for="field_dateCreated">Date Created</label>
+                    <div class="d-flex">
+                        <input id="field_dateCreated" type="datetime-local" class="form-control" name="dateCreated" formControlName="dateCreated" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.barcode" for="field_barcode">Barcode</label>
+                    <input type="text" class="form-control" name="barcode" id="field_barcode"
+                           formControlName="barcode"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.serialCode" for="field_serialCode">Serial Code</label>
+                    <input type="text" class="form-control" name="serialCode" id="field_serialCode"
+                           formControlName="serialCode"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.priorityPosition" for="field_priorityPosition">Priority Position</label>
+                    <input type="number" class="form-control" name="priorityPosition" id="field_priorityPosition"
+                           formControlName="priorityPosition"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.active" for="field_active">Active</label>
+                    <input type="checkbox" class="form-control" name="active" id="field_active"
+                           formControlName="active"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.isVariantProduct" for="field_isVariantProduct">Is Variant Product</label>
+                    <input type="checkbox" class="form-control" name="isVariantProduct" id="field_isVariantProduct"
+                           formControlName="isVariantProduct"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.productTypes" for="field_productTypes">Product Types</label>
+                    <select class="form-control" id="field_productTypes" name="productTypes" formControlName="productTypesId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="productTypeOption.id" *ngFor="let productTypeOption of producttypes; trackBy: trackProductTypeById">{{productTypeOption.productType}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.shop" for="field_shop">Shop</label>
+                    <select class="form-control" id="field_shop" name="shop" formControlName="shopId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="shopOption.id" *ngFor="let shopOption of shops; trackBy: trackShopById">{{shopOption.shopName}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.discounts" for="field_discounts">Discounts</label>
+                    <select class="form-control" id="field_discounts" name="discounts" formControlName="discountsId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="discountOption.id" *ngFor="let discountOption of discounts; trackBy: trackDiscountById">{{discountOption.description}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.taxes" for="field_taxes">Taxes</label>
+                    <select class="form-control" id="field_taxes" name="taxes" formControlName="taxesId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="taxOption.id" *ngFor="let taxOption of taxes; trackBy: trackTaxById">{{taxOption.description}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="doraposApp.product.category" for="field_category">Category</label>
+                    <select class="form-control" id="field_category" name="category" formControlName="categoryId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="productCategoryOption.id" *ngFor="let productCategoryOption of productcategories; trackBy: trackProductCategoryById">{{productCategoryOption.category}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
