@@ -43,13 +43,13 @@ pipeline {
        
         stage('postgresql image') {
            steps { 
-               sh "/usr/local/bin/docker-compose src/main/docker/postgresql.yml up -d"
+               sh "/usr/local/bin/docker-compose  -f src/main/docker/postgresql.yml up -d"
            }
        }
        
         stage('elasticsearch image') {
            steps { 
-               sh "/usr/local/bin/docker-compose src/main/docker/elasticsearch.yml up -d"
+               sh "/usr/local/bin/docker-compose  -f src/main/docker/elasticsearch.yml up -d"
            }
        }
      
