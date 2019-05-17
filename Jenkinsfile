@@ -37,7 +37,7 @@ pipeline {
        
        stage('Build image') {
            steps { 
-               app = docker.build("myjiphister")
+               sh "docker build -t dorapos.BUILD_NUMBER ."
            }
        }
 }
