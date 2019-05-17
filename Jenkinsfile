@@ -34,5 +34,11 @@ pipeline {
         archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
       }
     } 
+       
+       stage('Build image') {
+           steps { 
+               app = docker.build("myjiphister")
+           }
+       }
 }
 }
