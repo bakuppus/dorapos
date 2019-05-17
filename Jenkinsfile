@@ -37,7 +37,7 @@ pipeline {
        
        stage('Build image') {
            steps { 
-               sh "docker build -t dorapos.BUILD_NUMBER ."
+               sh "docker build -t dorapos.$BUILD_NUMBER ."
            }
        }
 }
