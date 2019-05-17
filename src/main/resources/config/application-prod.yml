@@ -33,7 +33,7 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://3.86.235.202:5432/dorapos
+    url: jdbc:postgresql://18.234.77.93:5432/dorapos
     username: dorapos
     password:
     hikari:
@@ -51,11 +51,11 @@ spring:
       hibernate.generate_statistics: false
   data:
     jest:
-      uri: http://3.86.235.202:9200
+      uri: http://18.234.77.93:9200
   # see https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-nosql.html#boot-features-connecting-to-elasticsearch-jest
   elasticsearch:
     rest:
-      uris: http://3.86.235.202:9200
+      uris: http://18.234.77.93:9200
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
     contexts: prod
