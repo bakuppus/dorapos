@@ -53,7 +53,7 @@ pipeline {
            }
        }
      
-        stage('postgresql image') {
+        stage('dorapos deploy') {
            steps { 
                sh "docker run -d -p 8082:8080 dorapos-$BUILD_NUMBER"
            }
