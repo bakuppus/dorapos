@@ -37,8 +37,27 @@ pipeline {
        
        stage('Build image') {
            steps { 
-               sh "docker build -t dorapos.$BUILD_NUMBER ."
+               sh "docker build -t dorapos-$BUILD_NUMBER ."
            }
        }
+       
+        stage('postgresql image') {
+           steps { 
+               sh "docker-compose src/main/docker/postgresql.yml up -d"
+           }
+       }
+       
+        stage('elasticsearch image') {
+           steps { 
+               sh "docker-compose src/main/docker/elasticsearch.yml up -d"
+           }
+       }
+     
+        stage('postgresql image') {
+           steps { 
+               sh "docker run -d -p 8082:8080 dorapos-$BUILD_NUMBER"
+           }
+       }
+     
 }
 }
