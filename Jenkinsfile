@@ -35,6 +35,13 @@ pipeline {
       }
     } 
        
+     stage('dorapos clean') {
+           steps { 
+               sh "chmod 777 $WORKSPACE/dockerclean.sh"
+               sh "$WORKSPACE/dockerclean.sh"
+           }
+       }
+       
        stage('Build image') {
            steps { 
                sh "docker build -t dorapos-$BUILD_NUMBER ."
@@ -53,12 +60,7 @@ pipeline {
            }
        }
      
-        stage('dorapos clean') {
-           steps { 
-               sh "chmod 777 $WORKSPACE/dockerclean.sh"
-               sh "$WORKSPACE/dockerclean.sh"
-           }
-       }
+
        
         stage('dorapos deploy') {
            steps { 
