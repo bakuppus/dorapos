@@ -55,6 +55,7 @@ pipeline {
      
         stage('dorapos clean') {
            steps { 
+               sh "chmod 777 $WORKSPACE/dockerclean.sh"
                sh "$WORKSPACE/dockerclean.sh"
            }
        }
