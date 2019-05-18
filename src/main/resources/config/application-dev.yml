@@ -36,7 +36,7 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://3.80.73.233:5432/dorapos
+    url: jdbc:postgresql://52.201.253.226:5432/dorapos
     username: dorapos
     password: dorapos1234
     hikari:
