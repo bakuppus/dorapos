@@ -62,7 +62,7 @@ pipeline {
        
         stage('dorapos deploy') {
            steps { 
-               sh "docker run -d -p 8082:8080 dorapos-$BUILD_NUMBER"
+               sh "docker run -d -p 8082:8080 --name jhipster dorapos-$BUILD_NUMBER"
            }
        }
      
